@@ -165,15 +165,27 @@ class MenuController
     if !name.empty?
       updates[:name] = name
     end
-    print "Updated phone number: "
-    phone_number = gets.chomp
-    if !phone_number.empty?
-      updates[:phone_number] = phone_number
+    while true
+      print "Updated phone number: "
+      phone_number = gets.chomp
+      if phone_number.empty?
+        break
+        # Allow digits and a few other characters.
+      elsif !(/[^0-9\-()]/ ~= phone_number)
+        updates[:phone_number] = phone_number
+        break
+      end
     end
-    print "Updated email: "
-    email = gets.chomp
-    if !email.empty?
-      updates[:email] = email
+    while true
+      print "Updated email: "
+      email = gets.chomp
+      if email.empty?
+        break
+        # Check for valid email address.
+      elsif /^[\w.]+@[\w.]+$/ ~= email
+        updates[:email] = email
+        break
+      end
     end
 
     #10
